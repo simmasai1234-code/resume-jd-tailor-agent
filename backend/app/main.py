@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from backend.app.api.upload import router as upload_router
+from backend.app.api.parse import router as parse_router
 
 
 app = FastAPI(
@@ -11,6 +12,7 @@ app = FastAPI(
 
 
 app.include_router(upload_router)
+app.include_router(parse_router)
 
 
 @app.get("/")
