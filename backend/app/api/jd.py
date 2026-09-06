@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from fastapi import APIRouter, HTTPException
 
 from backend.app.agents.jd_agent import JDAgent
@@ -9,14 +11,31 @@ router = APIRouter(
     tags=["JD Analysis"]
 )
 
+UPLOAD_DIR = Path("uploads").resolve()
+
 jd_agent = JDAgent()
 
 
 @router.get("/analyze")
 def analyze_jd(filename: str):
 
+    file_path = (UPLOAD_DIR / filename).resolve()
+
+    # Security check
+    if UPLOAD_DIR not in file_path.parents:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid filename."
+        )
+
+    if not file_path.exists():
+        raise HTTPException(
+            status_code=404,
+            detail="JD file not found."
+        )
+
     try:
-        text = extract_text(f"uploads/{filename}")
+        text = extract_text(str(file_path))
 
         if not text:
             raise HTTPException(
@@ -31,14 +50,8 @@ def analyze_jd(filename: str):
             "analysis": analysis
         }
 
-    except FileNotFoundError:
+    except ValueError as error:
         raise HTTPException(
-            status_code=404,
-            detail="JD file not found."
-        )
-
-    except Exception as error:
-        raise HTTPException(
-            status_code=500,
+            status_code=400,
             detail=str(error)
         )
