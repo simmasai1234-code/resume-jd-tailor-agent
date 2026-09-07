@@ -1,0 +1,30 @@
+Resume Writing Guidelines
+
+A good technical resume should be concise, relevant, truthful, and easy to scan.
+
+Summary:
+The professional summary should highlight the candidate's strongest relevant skills, experience, and career focus. It should be tailored to the target role without claiming skills that the candidate does not possess.
+
+Skills:
+Skills should contain technologies, programming languages, frameworks, databases, tools, and other relevant technical competencies that the candidate actually knows.
+
+Projects:
+Projects should describe the problem, technologies used, and the candidate's contribution. Use strong action verbs such as developed, designed, implemented, built, optimized, and integrated.
+
+Experience:
+Experience bullets should focus on the candidate's actual responsibilities and achievements. Quantitative metrics should only be included when they are supported by the original resume.
+
+Job Description Matching:
+Resume content should prioritize skills and experience that are relevant to the target job description.
+
+Keyword Optimization:
+Important keywords from the job description can be emphasized when they accurately describe the candidate's existing skills or experience.
+
+Truthfulness:
+Never invent skills, certifications, projects, experience, achievements, responsibilities, or metrics.
+
+Missing Skills:
+A missing job requirement should not be added to the resume as if the candidate already possesses it. It can instead be identified as a skill gap and recommended for learning.
+
+Resume Tailoring:
+Tailoring should improve wording, ordering, relevance, and keyword emphasis while preserving the original meaning and factual information.

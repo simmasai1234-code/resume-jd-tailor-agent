@@ -1,49 +1,99 @@
+import json
+
+from backend.app.rag.knowledge_base import KnowledgeBase
+from backend.app.services.llm_service import LLMService
+
+
 class SkillGapAgent:
+
+    def __init__(self):
+
+        self.llm = LLMService()
+
+        self.knowledge_base = KnowledgeBase(
+            "backend/app/data/knowledge_base"
+        )
 
     def analyze(self, matching_result: dict) -> dict:
 
         missing_skills = matching_result.get(
-            "missing_skills", []
+            "missing_skills",
+            []
         )
 
         partial_matches = matching_result.get(
-            "partial_matches", []
+            "partial_matches",
+            []
         )
 
-        high_priority_gaps = []
-        medium_priority_gaps = []
-        low_priority_gaps = []
+        # Retrieve relevant resume guidelines
+        query = (
+            "How should missing and partially matched "
+            "skills be handled when tailoring a resume?"
+        )
 
-        # Required skills that are completely missing
-        for skill in missing_skills:
+        retrieved_knowledge = self.knowledge_base.retrieve(
+            query,
+            top_k=2
+        )
 
-            high_priority_gaps.append({
-                "skill": skill,
-                "reason": "Required skill is missing from the resume.",
-                "recommendation": f"Learn and add relevant experience with {skill}."
-            })
+        knowledge_text = "\n\n".join(
+            result["content"]
+            for result in retrieved_knowledge
+        )
 
-        # Skills where the resume has a partial match
-        for skill in partial_matches:
+        prompt = f"""
+You are a Skill Gap Analysis Agent.
 
-            medium_priority_gaps.append({
-                "skill": skill,
-                "reason": "The resume shows a partial match for this skill.",
-                "recommendation": f"Strengthen practical experience with {skill}."
-            })
+Analyze the skill gaps between a candidate's resume
+and a job description.
 
-        if not high_priority_gaps and not medium_priority_gaps:
-            summary = "No major skill gaps were identified."
-        else:
-            summary = (
-                f"Identified {len(high_priority_gaps)} high-priority "
-                f"and {len(medium_priority_gaps)} medium-priority skill gaps."
+IMPORTANT RULES:
+
+1. Do not invent candidate skills.
+2. Missing skills must remain missing.
+3. Clearly distinguish missing skills from partial matches.
+4. Give practical learning recommendations.
+5. Follow the retrieved resume-writing guidelines.
+6. Return ONLY valid JSON.
+7. Do not use markdown.
+
+Use exactly this structure:
+
+{{
+    "high_priority_gaps": [],
+    "medium_priority_gaps": [],
+    "low_priority_gaps": [],
+    "learning_recommendations": [],
+    "summary": ""
+}}
+
+MATCHING RESULT:
+----------------
+{json.dumps(matching_result, indent=2)}
+----------------
+
+RETRIEVED RESUME GUIDELINES:
+----------------
+{knowledge_text}
+----------------
+
+Now perform the skill gap analysis.
+"""
+
+        response = self.llm.generate(prompt)
+
+        response = response.strip()
+
+        if response.startswith("```"):
+            response = response.replace("```json", "")
+            response = response.replace("```", "")
+            response = response.strip()
+
+        try:
+            return json.loads(response)
+
+        except json.JSONDecodeError:
+            raise ValueError(
+                "Gemini returned invalid JSON for skill gap analysis."
             )
-
-        return {
-            "high_priority_gaps": high_priority_gaps,
-            "medium_priority_gaps": medium_priority_gaps,
-            "low_priority_gaps": low_priority_gaps,
-            "learning_recommendations": [],
-            "summary": summary
-        }
