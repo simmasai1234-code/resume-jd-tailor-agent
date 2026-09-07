@@ -10,7 +10,7 @@ from backend.app.api.resume_tailoring import router as resume_tailoring_router
 from backend.app.api.cover_letter import router as cover_letter_router
 from backend.app.api.critic import router as critic_router
 from backend.app.api.revision import router as revision_router
-
+from backend.app.api.interview import router as interview_router
 
 app = FastAPI(
     title="Resume JD Tailor Agent",
@@ -29,6 +29,7 @@ app.include_router(resume_tailoring_router)
 app.include_router(cover_letter_router)
 app.include_router(critic_router)
 app.include_router(revision_router)
+app.include_router(interview_router)
 
 @app.get("/")
 def root():
