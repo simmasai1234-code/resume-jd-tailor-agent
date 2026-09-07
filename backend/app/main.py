@@ -8,6 +8,7 @@ from backend.app.api.matching import router as matching_router
 from backend.app.api.skill_gap import router as skill_gap_router
 from backend.app.api.resume_tailoring import router as resume_tailoring_router
 from backend.app.api.cover_letter import router as cover_letter_router
+from backend.app.api.critic import router as critic_router
 
 
 app = FastAPI(
@@ -25,6 +26,7 @@ app.include_router(matching_router)
 app.include_router(skill_gap_router)
 app.include_router(resume_tailoring_router)
 app.include_router(cover_letter_router)
+app.include_router(critic_router)
 
 @app.get("/")
 def root():
