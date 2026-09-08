@@ -1,6 +1,6 @@
 from pathlib import Path
 
-import fitz
+import pymupdf
 from docx import Document
 
 
@@ -11,15 +11,16 @@ def extract_text_from_pdf(file_path: str) -> str:
 
     text = []
 
-    document = fitz.open(file_path)
+    document = pymupdf.open(file_path)
 
-    for page in document:
-        page_text = page.get_text()
+    try:
+        for page in document:
+            page_text = page.get_text()
 
-        if page_text:
-            text.append(page_text)
-
-    document.close()
+            if page_text:
+                text.append(page_text.strip())
+    finally:
+        document.close()
 
     return "\n".join(text).strip()
 
@@ -34,8 +35,10 @@ def extract_text_from_docx(file_path: str) -> str:
     text = []
 
     for paragraph in document.paragraphs:
-        if paragraph.text.strip():
-            text.append(paragraph.text.strip())
+        content = paragraph.text.strip()
+
+        if content:
+            text.append(content)
 
     return "\n".join(text).strip()
 
