@@ -9,20 +9,26 @@ def extract_text_from_pdf(file_path: str) -> str:
     Extract text from a PDF file.
     """
 
-    text = []
-
-    document = pymupdf.open(file_path)
-
     try:
-        for page in document:
-            page_text = page.get_text()
+        document = pymupdf.open(file_path)
 
-            if page_text:
-                text.append(page_text.strip())
-    finally:
-        document.close()
+        text = []
 
-    return "\n".join(text).strip()
+        try:
+            for page in document:
+                page_text = page.get_text()
+
+                if page_text:
+                    text.append(page_text.strip())
+        finally:
+            document.close()
+
+        return "\n".join(text).strip()
+
+    except pymupdf.FileNotFoundError as e:
+        raise FileNotFoundError(
+            f"File not found: {file_path}"
+        ) from e
 
 
 def extract_text_from_docx(file_path: str) -> str:
