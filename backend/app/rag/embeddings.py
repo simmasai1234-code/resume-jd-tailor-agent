@@ -3,6 +3,7 @@ import os
 from google import genai
 from dotenv import load_dotenv
 from pathlib import Path
+from backend.app.config import settings
 
 
 BASE_DIR = Path(__file__).resolve().parents[3]
@@ -13,12 +14,12 @@ class EmbeddingService:
 
     def __init__(self):
 
-        api_key = os.getenv("GEMINI_API_KEY")
+        api_key = settings.GEMINI_API_KEYS[0] if settings.GEMINI_API_KEYS else None
 
         if not api_key:
-            raise ValueError(
-                "GEMINI_API_KEY is not configured."
-            )
+             raise ValueError(
+             "No Gemini API keys are configured."
+        )
 
         self.client = genai.Client(
             api_key=api_key
