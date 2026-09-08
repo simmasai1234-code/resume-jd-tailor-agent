@@ -11,15 +11,27 @@ class KnowledgeBase:
             knowledge_base_path
         )
 
-        self.embedding_service = EmbeddingService()
+        self.embedding_service = None
 
         self.vector_store = VectorStore()
 
-        self._build()
+        self._built = False
+
+    def _get_embedding_service(self):
+
+        if self.embedding_service is None:
+            self.embedding_service = EmbeddingService()
+
+        return self.embedding_service
 
     def _build(self):
 
+        if self._built:
+            return
+
         documents = self.loader.load_documents()
+
+        embedding_service = self._get_embedding_service()
 
         for document in documents:
 
@@ -30,7 +42,7 @@ class KnowledgeBase:
 
             for chunk in chunks:
 
-                vector = self.embedding_service.embed(
+                vector = embedding_service.embed(
                     chunk
                 )
 
@@ -42,13 +54,19 @@ class KnowledgeBase:
                     vector
                 )
 
+        self._built = True
+
     def retrieve(
         self,
         query: str,
         top_k: int = 3
     ) -> list[dict]:
 
-        query_vector = self.embedding_service.embed(
+        self._build()
+
+        embedding_service = self._get_embedding_service()
+
+        query_vector = embedding_service.embed(
             query
         )
 
