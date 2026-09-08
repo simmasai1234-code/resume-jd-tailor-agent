@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume JD Tailor Agent</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div>
+            <h1>🤖 Resume JD Tailor Agent</h1>
+            <p>AI-powered Resume Optimization & Interview Preparation</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+
+            <h2>Upload Your Documents</h2>
+
+            <div class="upload-grid">
+
+                <div class="upload-card">
+                    <h3>📄 Resume</h3>
+                    <p>Upload your Resume</p>
+
+                    <input
+                        type="file"
+                        id="resume"
+                        accept=".pdf,.docx"
+                    >
+                </div>
+
+                <div class="upload-card">
+                    <h3>💼 Job Description</h3>
+                    <p>Upload the Job Description</p>
+
+                    <input
+                        type="file"
+                        id="jobDescription"
+                        accept=".pdf,.docx"
+                    >
+                </div>
+
+            </div>
+
+            <button id="analyzeButton">
+                🚀 Analyze Resume
+            </button>
+
+            <p id="status"></p>
+
+        </section>
+
+
+        <!-- Results Section -->
+
+        <section id="results" class="results-section">
+
+            <h2>📊 Analysis Results</h2>
+
+            <!-- Match Score -->
+
+            <div class="result-card">
+
+                <h3>🎯 Resume Match</h3>
+
+                <div id="matchResult">
+                    Results will appear here.
+                </div>
+
+            </div>
+
+
+            <!-- Skill Gap -->
+
+            <div class="result-card">
+
+                <h3>🧩 Skill Gap Analysis</h3>
+
+                <div id="skillGapResult">
+                    Results will appear here.
+                </div>
+
+            </div>
+
+
+            <!-- Tailored Resume -->
+
+            <div class="result-card">
+
+                <h3>✨ Tailored Resume</h3>
+
+                <div id="resumeResult">
+                    Results will appear here.
+                </div>
+
+            </div>
+
+
+            <!-- Cover Letter -->
+
+            <div class="result-card">
+
+                <h3>📝 Cover Letter</h3>
+
+                <div id="coverLetterResult">
+                    Results will appear here.
+                </div>
+
+            </div>
+
+
+            <!-- Interview -->
+
+            <div class="result-card">
+
+                <h3>🎤 Interview Preparation</h3>
+
+                <div id="interviewResult">
+                    Results will appear here.
+                </div>
+
+            </div>
+
+
+            <!-- Critic -->
+
+            <div class="result-card">
+
+                <h3>🔍 AI Critic</h3>
+
+                <div id="criticResult">
+                    Results will appear here.
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <p>
+            Resume JD Tailor Agent • AI-powered Career Assistant
+        </p>
+
+    </footer>
+
+    <script src="/static/app.js"></script>
+
+</body>
+</html>

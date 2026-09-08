@@ -1,5 +1,7 @@
 from fastapi import FastAPI
-
+from pathlib import Path
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from backend.app.api.upload import router as upload_router
 from backend.app.api.parse import router as parse_router
 from backend.app.api.jd import router as jd_router
@@ -19,6 +21,19 @@ app = FastAPI(
     description="Agentic AI system for resume and job description optimization",
     version="0.1.0"
 )
+BASE_DIR = Path(__file__).resolve().parents[2]
+FRONTEND_DIR = BASE_DIR / "frontend"
+
+app.mount(
+    "/static",
+    StaticFiles(directory=FRONTEND_DIR),
+    name="static"
+)
+
+
+@app.get("/", include_in_schema=False)
+async def frontend():
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 
 app.include_router(upload_router)
