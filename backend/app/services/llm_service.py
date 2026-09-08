@@ -30,9 +30,32 @@ class LLMService:
 
     def generate(self, prompt: str) -> str:
 
-        response = self.client.models.generate_content(
-            model=self.model,
-            contents=prompt
-        )
+        try:
 
-        return response.text
+            response = self.client.models.generate_content(
+                model=self.model,
+                contents=prompt
+            )
+
+            if not response.text:
+                raise ValueError(
+                    "Gemini returned an empty response."
+                )
+
+            return response.text
+
+        except Exception as e:
+
+            error_message = str(e)
+
+            if "429" in error_message or "RESOURCE_EXHAUSTED" in error_message:
+
+                raise RuntimeError(
+                    "Gemini API quota exceeded. "
+                    "Please wait for the quota to reset or "
+                    "check your Gemini API plan and billing."
+                ) from e
+
+            raise RuntimeError(
+                f"Gemini API request failed: {error_message}"
+            ) from e
