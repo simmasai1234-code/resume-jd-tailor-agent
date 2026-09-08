@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,246 +12,539 @@
 
 <body>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div>
-                <h1>🤖 Resume JD Tailor Agent</h1>
-                <p>AI-powered Resume Optimization & Interview Preparation</p>
-            </div>
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-            <div class="status-badge">
-                ● AI Agent System
-            </div>
+<header class="header">
+
+    <div class="header-content">
+
+        <div>
+            <h1>🤖 Resume JD Tailor Agent</h1>
+
+            <p>
+                AI-powered Resume Optimization & Interview Preparation
+            </p>
         </div>
-    </header>
+
+        <div class="status-badge">
+            <span class="status-dot"></span>
+            AI Agent System
+        </div>
+
+    </div>
+
+</header>
 
 
-    <main class="container">
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-        <!-- Upload Section -->
-        <section class="upload-section">
+<main class="container">
 
-            <div class="section-heading">
-                <div>
-                    <h2>📄 Analyze Your Resume</h2>
-                    <p>
-                        Upload your resume and target job description to get
-                        AI-powered career insights.
-                    </p>
-                </div>
+
+<!-- =====================================================
+     UPLOAD SECTION
+===================================================== -->
+
+<section class="upload-section">
+
+    <div class="section-heading">
+
+        <div>
+            <h2>📄 Analyze Your Resume</h2>
+
+            <p>
+                Upload your resume and target job description
+                to generate personalized career insights.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="upload-grid">
+
+
+        <!-- Resume -->
+
+        <div class="upload-card">
+
+            <div class="upload-icon">
+                📄
             </div>
 
+            <h3>Resume</h3>
 
-            <div class="upload-grid">
+            <p>
+                Upload your current resume
+            </p>
 
-                <!-- Resume -->
-                <div class="upload-card">
+            <label
+                class="file-label"
+                for="resume">
+                Choose Resume
+            </label>
 
-                    <div class="upload-icon">
-                        📄
-                    </div>
+            <input
+                type="file"
+                id="resume"
+                accept=".pdf,.docx">
 
-                    <h3>Resume</h3>
+            <span
+                id="resumeFileName"
+                class="file-name">
+                No file selected
+            </span>
 
-                    <p>
-                        Upload your current resume
-                    </p>
-
-                    <label class="file-label" for="resume">
-                        Choose Resume
-                    </label>
-
-                    <input
-                        type="file"
-                        id="resume"
-                        accept=".pdf,.docx"
-                    >
-
-                    <span id="resumeFileName" class="file-name">
-                        No file selected
-                    </span>
-
-                </div>
+        </div>
 
 
-                <!-- Job Description -->
-                <div class="upload-card">
+        <!-- Job Description -->
 
-                    <div class="upload-icon">
-                        💼
-                    </div>
+        <div class="upload-card">
 
-                    <h3>Job Description</h3>
-
-                    <p>
-                        Upload the target job description
-                    </p>
-
-                    <label class="file-label" for="jobDescription">
-                        Choose Job Description
-                    </label>
-
-                    <input
-                        type="file"
-                        id="jobDescription"
-                        accept=".pdf,.docx"
-                    >
-
-                    <span id="jdFileName" class="file-name">
-                        No file selected
-                    </span>
-
-                </div>
-
+            <div class="upload-icon">
+                💼
             </div>
 
+            <h3>Job Description</h3>
 
-            <button id="analyzeButton" class="analyze-button">
-                🚀 Analyze Resume
-            </button>
-            <button id="mockButton" class="mock-button">
-                  🧪 Test Dashboard with Demo Data
-            </button>
+            <p>
+                Upload the target job description
+            </p>
 
-            <div id="loading" class="loading">
-                <div class="spinner"></div>
-                <p>AI agents are analyzing your documents...</p>
-            </div>
+            <label
+                class="file-label"
+                for="jobDescription">
+                Choose Job Description
+            </label>
 
-            <p id="status" class="status"></p>
+            <input
+                type="file"
+                id="jobDescription"
+                accept=".pdf,.docx">
 
-        </section>
+            <span
+                id="jdFileName"
+                class="file-name">
+                No file selected
+            </span>
 
+        </div>
 
-        <!-- Dashboard -->
-        <section id="results" class="results-section">
-
-            <div class="section-heading">
-                <div>
-                    <h2>📊 AI Analysis Dashboard</h2>
-                    <p>
-                        Insights generated by the Resume JD Tailor Agent.
-                    </p>
-                </div>
-            </div>
+    </div>
 
 
-            <!-- Match Score -->
-            <div class="dashboard-grid">
+    <!-- Buttons -->
 
-                <div class="result-card match-card">
+    <div class="button-group">
 
-                    <div class="card-header">
-                        <h3>🎯 Resume Match</h3>
-                    </div>
+        <button
+            id="analyzeButton"
+            class="analyze-button">
 
-                    <div id="matchResult">
-                        Results will appear here.
-                    </div>
+            🚀 Analyze Resume
 
-                </div>
+        </button>
 
 
-                <!-- Skill Gap -->
-                <div class="result-card">
+        <button
+            id="mockButton"
+            class="mock-button">
 
-                    <div class="card-header">
-                        <h3>🧩 Skill Gap Analysis</h3>
-                    </div>
+            🧪 Demo Dashboard
 
-                    <div id="skillGapResult">
-                        Results will appear here.
-                    </div>
+        </button>
 
-                </div>
-
-            </div>
+    </div>
 
 
-            <!-- Tailored Resume -->
-            <div class="result-card large-card">
+    <!-- Loading -->
 
-                <div class="card-header">
-                    <h3>✨ Tailored Resume</h3>
+    <div
+        id="loading"
+        class="loading">
 
-                    <button
-                        id="downloadResume"
-                        class="secondary-button"
-                    >
-                        📥 Download
-                    </button>
-                </div>
+        <div class="spinner"></div>
 
-                <div id="resumeResult">
-                    Results will appear here.
-                </div>
-
-            </div>
-
-
-            <!-- Cover Letter -->
-            <div class="result-card large-card">
-
-                <div class="card-header">
-                    <h3>📝 Cover Letter</h3>
-
-                    <button
-                        id="downloadCoverLetter"
-                        class="secondary-button"
-                    >
-                        📥 Download
-                    </button>
-                </div>
-
-                <div id="coverLetterResult">
-                    Results will appear here.
-                </div>
-
-            </div>
-
-
-            <!-- Interview -->
-            <div class="result-card large-card">
-
-                <div class="card-header">
-                    <h3>🎤 Interview Preparation</h3>
-                </div>
-
-                <div id="interviewResult">
-                    Results will appear here.
-                </div>
-
-            </div>
-
-
-            <!-- Critic -->
-            <div class="result-card large-card">
-
-                <div class="card-header">
-                    <h3>🔍 AI Critic</h3>
-                </div>
-
-                <div id="criticResult">
-                    Results will appear here.
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- Footer -->
-    <footer>
         <p>
-            Resume JD Tailor Agent • AI-powered Career Assistant
+            AI agents are analyzing your documents...
         </p>
-    </footer>
+
+    </div>
 
 
-    <script src="/static/app.js"></script>
+    <p
+        id="status"
+        class="status">
+    </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     AGENT WORKFLOW
+===================================================== -->
+
+<section
+    id="workflowSection"
+    class="workflow-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <h2>🤖 Agentic AI Workflow</h2>
+
+            <p>
+                Multiple specialized AI agents collaborate
+                to optimize your resume.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="workflow-container">
+
+
+        <div class="workflow-step active">
+            <div class="workflow-icon">📄</div>
+            <strong>Resume Agent</strong>
+            <span>Analyze Resume</span>
+        </div>
+
+
+        <div class="workflow-arrow">
+            →
+        </div>
+
+
+        <div class="workflow-step">
+            <div class="workflow-icon">💼</div>
+            <strong>JD Agent</strong>
+            <span>Analyze Job</span>
+        </div>
+
+
+        <div class="workflow-arrow">
+            →
+        </div>
+
+
+        <div class="workflow-step">
+            <div class="workflow-icon">🎯</div>
+            <strong>Matching Agent</strong>
+            <span>Find Matches</span>
+        </div>
+
+
+        <div class="workflow-arrow">
+            →
+        </div>
+
+
+        <div class="workflow-step">
+            <div class="workflow-icon">🧩</div>
+            <strong>Skill Gap</strong>
+            <span>Find Gaps</span>
+        </div>
+
+
+        <div class="workflow-arrow">
+            →
+        </div>
+
+
+        <div class="workflow-step">
+            <div class="workflow-icon">✨</div>
+            <strong>Tailoring Agent</strong>
+            <span>Rewrite Resume</span>
+        </div>
+
+
+        <div class="workflow-arrow">
+            →
+        </div>
+
+
+        <div class="workflow-step critic-step">
+            <div class="workflow-icon">🔍</div>
+            <strong>Critic Agent</strong>
+            <span>Evaluate</span>
+        </div>
+
+
+        <div class="workflow-arrow">
+            →
+        </div>
+
+
+        <div class="workflow-step">
+            <div class="workflow-icon">🔄</div>
+            <strong>Revision Agent</strong>
+            <span>Improve</span>
+        </div>
+
+
+        <div class="workflow-arrow">
+            →
+        </div>
+
+
+        <div class="workflow-step">
+            <div class="workflow-icon">🎤</div>
+            <strong>Interview Agent</strong>
+            <span>Prepare</span>
+        </div>
+
+
+        <div class="workflow-arrow">
+            →
+        </div>
+
+
+        <div class="workflow-step">
+            <div class="workflow-icon">📝</div>
+            <strong>Cover Letter</strong>
+            <span>Generate</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section
+    id="results"
+    class="results-section">
+
+
+    <div class="section-heading">
+
+        <div>
+
+            <h2>📊 AI Analysis Dashboard</h2>
+
+            <p>
+                Your personalized career analysis.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         TOP DASHBOARD
+    ================================================= -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- Match -->
+
+        <div class="result-card">
+
+            <div class="card-header">
+
+                <h3>
+                    🎯 Resume Match
+                </h3>
+
+            </div>
+
+            <div id="matchResult">
+
+                <p class="empty-result">
+                    Results will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Skill Gap -->
+
+        <div class="result-card">
+
+            <div class="card-header">
+
+                <h3>
+                    🧩 Skill Gap Analysis
+                </h3>
+
+            </div>
+
+            <div id="skillGapResult">
+
+                <p class="empty-result">
+                    Results will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         TAILORED RESUME
+    ================================================= -->
+
+    <div class="result-card large-card">
+
+        <div class="card-header">
+
+            <h3>
+                ✨ Tailored Resume
+            </h3>
+
+            <button
+                id="downloadResume"
+                class="secondary-button">
+
+                📥 Download
+
+            </button>
+
+        </div>
+
+        <div id="resumeResult">
+
+            <p class="empty-result">
+                Results will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         COVER LETTER
+    ================================================= -->
+
+    <div class="result-card large-card">
+
+        <div class="card-header">
+
+            <h3>
+                📝 Cover Letter
+            </h3>
+
+            <button
+                id="downloadCoverLetter"
+                class="secondary-button">
+
+                📥 Download
+
+            </button>
+
+        </div>
+
+        <div id="coverLetterResult">
+
+            <p class="empty-result">
+                Results will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         INTERVIEW
+    ================================================= -->
+
+    <div class="result-card large-card">
+
+        <div class="card-header">
+
+            <h3>
+                🎤 Interview Preparation
+            </h3>
+
+        </div>
+
+        <div id="interviewResult">
+
+            <p class="empty-result">
+                Results will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         CRITIC
+    ================================================= -->
+
+    <div class="result-card large-card">
+
+        <div class="card-header">
+
+            <h3>
+                🔍 AI Critic
+            </h3>
+
+        </div>
+
+        <div id="criticResult">
+
+            <p class="empty-result">
+                Results will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <p>
+        Resume JD Tailor Agent
+    </p>
+
+    <span>
+        Agentic AI Career Assistant
+    </span>
+
+</footer>
+
+
+<script src="/static/app.js"></script>
 
 </body>
+
 </html>
